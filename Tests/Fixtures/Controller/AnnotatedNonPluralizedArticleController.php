@@ -12,13 +12,16 @@
 namespace FOS\RestBundle\Tests\Fixtures\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\ContainerAwareControllerTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  *  @Rest\RouteResource("Article", pluralize=false)
  */
-class AnnotatedNonPluralizedArticleController extends FosRestController
+class AnnotatedNonPluralizedArticleController extends Controller
 {
+    use ContainerAwareControllerTrait;
+
     /**
      * [GET] /article.
      */

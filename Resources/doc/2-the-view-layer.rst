@@ -20,17 +20,21 @@ it simply works as a container for all the data/configuration for the
 must always be processed by a ``ViewHandler`` (see the below section on the
 "view response listener" for how to get this processing applied automatically)
 
-FOSRestBundle ships with a controller extending the default Symfony controller,
-which adds several convenience methods:
+FOSRestBundle ships with two trait's that can be combined with the default Symfony
+controller, which adds several convenience methods ``ContainerTrait`` and
+``ContainerAwareControllerTrait``:
 
 .. code-block:: php
 
     <?php
 
-    use FOS\RestBundle\Controller\FOSRestController;
+    use FOS\RestBundle\Controller\ContainerAwareControllerTrait;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-    class UsersController extends FOSRestController
+    class UsersController extends Controller
     {
+        use ContainerAwareControllerTrait;
+
         public function getUsersAction()
         {
             $data = ...; // get data, in this case list of users.
@@ -61,10 +65,12 @@ If you need to pass more data in template, not for serialization, you can use ``
 
     <?php
 
-    use FOS\RestBundle\Controller\FOSRestController;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-    class UsersController extends FOSRestController
+    class UsersController extends Controller
     {
+        use ContainerAwareControllerTrait;
+
         public function getCategoryAction($categorySlug)
         {
             $category = $this->get('category_manager')->getBySlug($categorySlug);
@@ -88,10 +94,12 @@ or it is possible to use lazy-loading:
 
     <?php
 
-    use FOS\RestBundle\Controller\FOSRestController;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-    class UsersController extends FOSRestController
+    class UsersController extends Controller
     {
+        use ContainerAwareControllerTrait;
+
         public function getProductsAction($categorySlug)
         {
             $products = ...; // get data, in this case list of products.

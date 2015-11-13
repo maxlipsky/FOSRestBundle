@@ -12,16 +12,22 @@
 namespace FOS\RestBundle\Controller;
 
 use FOS\RestBundle\View\View;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\View\ViewHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Base Controller for Controllers using the View functionality of FOSRestBundle.
+ * Trait for Controllers using the View functionality of FOSRestBundle.
  *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
+ * @author Lukas Kahwe Smith <smith@pooteeweet.org>
  */
-abstract class FOSRestController extends Controller
+trait ControllerTrait
 {
+    /**
+     * @var ViewHandlerInterface
+     */
+    private $viewhandler;
+
     /**
      * Creates a view.
      *
@@ -83,6 +89,30 @@ abstract class FOSRestController extends Controller
      */
     protected function handleView(View $view)
     {
-        return $this->get('fos_rest.view_handler')->handle($view);
+        return $this->getViewHandler()->handle($view);
+    }
+
+    /**
+     * Get the ViewHandler.
+     *
+     * @return ViewHandlerInterface
+     */
+    protected function getViewHandler()
+    {
+        if (!$this->viewhandler instanceof ViewHandlerInterface) {
+            throw new \RuntimeException('A "ViewHandlerInterface" instance must be set when usign the FOSRestBundle "ControllerTrait".');
+        }
+
+        return $this->viewhandler;
+    }
+
+    /**
+     * Get the ViewHandler.
+     *
+     * @param ViewHandlerInterface $viewhandler
+     */
+    protected function setViewHandler(ViewHandlerInterface $viewhandler)
+    {
+        $this->viewhandler = $viewhandler;
     }
 }
