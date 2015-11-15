@@ -49,6 +49,12 @@ class AccessDeniedListener extends ExceptionListener
         parent::__construct($controller, $logger);
     }
 
+
+    /**
+     * @param GetResponseForExceptionEvent $event
+     * @return bool
+     * @throws \Exception
+     */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         static $handling;
@@ -86,8 +92,14 @@ class AccessDeniedListener extends ExceptionListener
         }
 
         $handling = false;
+
+        return true;
     }
 
+
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return [

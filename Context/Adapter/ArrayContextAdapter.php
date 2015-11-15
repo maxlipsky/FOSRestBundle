@@ -71,6 +71,7 @@ class ArrayContextAdapter implements SerializationContextAdapterInterface, Deser
 
     /**
      * @param ContextInterface $context
+     * @return mixed
      */
     protected function convertContext(ContextInterface $context)
     {

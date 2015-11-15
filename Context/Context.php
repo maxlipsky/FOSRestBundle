@@ -74,6 +74,7 @@ class Context implements ContextInterface, GroupableContextInterface, Versionabl
         if (isset($this->attributes[$key])) {
             return $this->attributes[$key];
         }
+        return false;
     }
 
     /**
