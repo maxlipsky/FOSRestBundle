@@ -12,7 +12,7 @@
 namespace FOS\RestBundle\Controller;
 
 use FOS\RestBundle\View\ViewHandlerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Trait for Controllers using the View functionality of FOSRestBundle.
@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 trait ContainerAwareControllerTrait
 {
     use ControllerTrait;
-    use ContainerAwareTrait;
 
     /**
      * Get the ViewHandler.
@@ -32,9 +31,16 @@ trait ContainerAwareControllerTrait
     protected function getViewHandler()
     {
         if (!$this->viewhandler instanceof ViewHandlerInterface) {
-            $this->viewhandler = $this->container->get('fos_rest.view_handler');
+            $this->viewhandler = $this->getContainer()->get('fos_rest.view_handler');
         }
 
         return $this->viewhandler;
     }
+
+    /**
+     * Gets the Container associated with this Controller.
+     *
+     * @return ContainerInterface
+     */
+    abstract protected function getContainer();
 }
