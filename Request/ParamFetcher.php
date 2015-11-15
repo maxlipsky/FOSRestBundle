@@ -226,7 +226,7 @@ class ParamFetcher implements ParamFetcherInterface, ContainerAwareInterface
      *
      * @param ParamInterface $param the configuration for the param fetcher
      *
-     * @throws InvalidArgumentException
+     * @throws /InvalidArgumentException
      * @throws BadRequestHttpException
      */
     protected function checkNotIncompatibleParams(ParamInterface $param)
